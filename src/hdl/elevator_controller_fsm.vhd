@@ -96,17 +96,17 @@ begin
 
 	-- CONCURRENT STATEMENTS ------------------------------------------------------------------------------
 	-- Next State Logic
-    f_Q_next <= f_Q when (i_stop = '1') else -- going up
+    f_Q_next <= f_Q when (i_stop = '1') else -- Stay at current floor if stopped
                 s_floor2 when (i_reset = '1') else -- Reset state is Floor 2
-                s_floor2 when (f_Q = s_floor4 and i_up_down = '1') else 
-                s_floor1 when (f_Q = s_floor1 and i_up_down = '0') else 
-                s_floor2 when (f_Q = s_floor1 and i_up_down = '1' and i_stop = '0') else 
-                s_floor3 when (f_Q = s_floor2 and i_up_down = '1' and i_stop = '0') else 
-                s_floor4 when (f_Q = s_floor3 and i_up_down = '1' and i_stop = '0') else 
-                s_floor3 when (f_Q = s_floor4 and i_up_down = '0' and i_stop = '0') else 
-                s_floor2 when (f_Q = s_floor3 and i_up_down = '0' and i_stop = '0') else 
-                s_floor1 when (f_Q = s_floor2 and i_up_down = '0' and i_stop = '0') else 
-                s_floor2; 
+                s_floor2 when (f_Q = s_floor4 and i_up_down = '1') else -- Stay at top floor if going up from floor 4
+                s_floor1 when (f_Q = s_floor1 and i_up_down = '0') else -- Stay at bottom floor if going down
+                s_floor2 when (f_Q = s_floor1 and i_up_down = '1' and i_stop = '0') else -- Start going up from Floor 1
+                s_floor3 when (f_Q = s_floor2 and i_up_down = '1' and i_stop = '0') else -- Continue going up
+                s_floor4 when (f_Q = s_floor3 and i_up_down = '1' and i_stop = '0') else -- Stay at floor 4 if going up from floor 3
+                s_floor3 when (f_Q = s_floor4 and i_up_down = '0' and i_stop = '0') else -- Start going down from Floor 4
+                s_floor2 when (f_Q = s_floor3 and i_up_down = '0' and i_stop = '0') else -- Continue going down
+                s_floor1 when (f_Q = s_floor2 and i_up_down = '0' and i_stop = '0') else -- Continue going down
+                s_floor2; -- Default case
   
 	-- Output logic
     with f_Q select
