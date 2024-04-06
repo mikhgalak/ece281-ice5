@@ -27,3 +27,10 @@ env:
 If successful then GHDL will quietly exit with a `0` code.
 If any of the `assert` statements fail **with** `severity failure` then GHDL will cease the simulation and exit with non-zero code; this will also cause the workflow to fail.
 Assert statements of other severity levels, such as "error" w
+
+## Documentation
+
+None
+
+![Waveform that shows the f_Q and f_Q_next signals. Other than that it shows the elevator moving all the way up and then all the way down. The signals show how the elevator waits at certain floors for a set amount 
+of clock cycles.](waveform.png)
